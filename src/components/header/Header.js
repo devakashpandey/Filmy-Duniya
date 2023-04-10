@@ -11,15 +11,15 @@ const Header = () => {
           <div>
             <img className="w-14" src={logo} alt="logo" />
           </div>
-          <div className="text-[27px] font-semibold">
+          <div className="text-[25px] font-semibold">
             Filmy-<span className="text-[#E94560] ">Duniya</span>
           </div>
         </div>
         <div
-          className="flex items-center justify-center gap-1.5 text-2xl font-semibold
-        cursor-pointer hover:border-2 shadow-xl border-[#0F3460] p-2 rounded-md  "
+          className="flex items-center justify-center gap-1 text-[20px] font-semibold
+        cursor-pointer border-2 shadow-xl border-[#0F3460] p-2 rounded-md hover:translate-x-1 duration-200"
         >
-          <ControlPointIcon style={{ fontSize: 27 }} />
+          <ControlPointIcon style={{ fontSize: 25 }} />
           Add <span className="text-[#E94560] ">New</span>
         </div>
       </div>
