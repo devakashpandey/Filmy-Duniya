@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { Container } from "@mui/material";
+import ReactStars from "react-stars";
 
 const Cards = () => {
   const [data, setData] = useState([
     {
       name: "Avengers EndGame",
       year: 2018,
-      rating: 5,
+      rating: 4,
       img: "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71niXI3lxlL._SY679_.jpg",
     },
     {
       name: "Avengers EndGame",
       year: 2018,
-      rating: 5,
+      rating: 3.5,
       img: "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71niXI3lxlL._SY679_.jpg",
     },
     {
@@ -75,7 +75,15 @@ const Cards = () => {
                     <span className="text-[#E94560]">Name</span> : {name}
                   </h1>
                   <h2>Year : {year}</h2>
-                  <h2>Rating : {rating}</h2>
+                  <h2 className="flex gap-1 items-center">
+                    Rating :{" "}
+                    <ReactStars
+                      size={20}
+                      half={true}
+                      value={rating}
+                      edit={false}
+                    />{" "}
+                  </h2>
                 </div>
               </div>
             );
