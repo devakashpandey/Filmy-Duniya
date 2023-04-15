@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../assets/logo.png";
-
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,13 +15,15 @@ const Header = () => {
             Filmy-<span className="text-[#E94560] ">Duniya</span>
           </div>
         </div>
-        <div
-          className="flex items-center justify-center gap-1 text-[20px] font-semibold
+        <Link to="/addmovie">
+          <div
+            className="flex items-center justify-center gap-1 text-[20px] font-semibold
         cursor-pointer border-2 shadow-xl border-[#0F3460] p-2 rounded-md hover:translate-x-1 duration-200"
-        >
-          <ControlPointIcon style={{ fontSize: 25 }} />
-          Add <span className="text-[#E94560] ">New</span>
-        </div>
+          >
+            <ControlPointIcon style={{ fontSize: 25 }} />
+            Add <span className="text-[#E94560] ">New</span>
+          </div>
+        </Link>
       </div>
     </>
   );
