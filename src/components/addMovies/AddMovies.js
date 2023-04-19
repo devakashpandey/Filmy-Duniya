@@ -5,11 +5,12 @@ const AddMovies = () => {
     title: "",
     year: "",
     description: "",
+    image: "",
   });
 
   return (
     <>
-      <section class="text-gray-600 body-font relative">
+      <section class="text-gray-400 body-font relative">
         <div class="container px-5 py-20 mx-auto">
           <div class="flex flex-col text-center w-full mb-10">
             <h1 class="sm:text-4xl text-2xl font-semibold mb-2 text-white">
@@ -51,6 +52,31 @@ const AddMovies = () => {
                   />
                 </div>
               </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <label for="imageURL" class="leading-7 text-sm text-gray-200">
+                    Image URL
+                  </label>
+                  <input
+                    id="imageURL"
+                    name="imageURL"
+                    class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  ></input>
+                </div>
+              </div>
+              <span className="text-center">OR</span>
+              <div class="p-2 w-full">
+                <div class="relative">
+                  <input
+                    id="image"
+                    name="image"
+                    value={form.description}
+                    type="file"
+                  ></input>
+                </div>
+              </div>
+
               <div class="p-2 w-full">
                 <div class="relative">
                   <label for="message" class="leading-7 text-sm text-gray-200">
