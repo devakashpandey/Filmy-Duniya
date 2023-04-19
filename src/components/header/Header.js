@@ -7,14 +7,16 @@ const Header = () => {
   return (
     <>
       <div className="w-full flex justify-between items-center p-5">
-        <div className="flex items-center cursor-pointer">
-          <div>
-            <img className="w-14" src={logo} alt="logo" />
+        <Link to="/">
+          <div className="flex items-center cursor-pointer">
+            <div>
+              <img className="w-14" src={logo} alt="logo" />
+            </div>
+            <div className="text-[25px] font-semibold">
+              Filmy-<span className="text-[#E94560] ">Duniya</span>
+            </div>
           </div>
-          <div className="text-[25px] font-semibold">
-            Filmy-<span className="text-[#E94560] ">Duniya</span>
-          </div>
-        </div>
+        </Link>
         <Link to="/addmovie">
           <div
             className="flex items-center justify-center gap-1 text-[20px] font-semibold
