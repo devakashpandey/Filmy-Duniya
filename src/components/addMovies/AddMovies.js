@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Oval } from "react-loader-spinner";
+import { addDoc } from "firebase/firestore";
+import { moviesCollRef } from "../../firebase";
+import swal from "sweetalert";
 
 const AddMovies = () => {
   const [form, setForm] = useState({
@@ -10,6 +13,18 @@ const AddMovies = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
+  const adddMovie = async () => {
+    setLoading(true);
+    await addDoc(moviesCollRef, form);
+    swal({
+      title: "Movie Added!",
+      icon: "success",
+      buttons: false,
+      timer: 3000,
+    });
+    setLoading(false);
+  };
 
   return (
     <>
@@ -86,7 +101,10 @@ const AddMovies = () => {
                 </div>
               </div>
               <div class="p-2 w-full">
-                <button class="flex mx-auto text-white bg-[#0F3460] border-0 py-2 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg">
+                <button
+                  onClick={adddMovie}
+                  class="flex mx-auto text-white bg-[#0F3460] border-0 py-2 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
+                >
                   {loading ? <Oval height={25} color="white" /> : "Add"}
                 </button>
               </div>
