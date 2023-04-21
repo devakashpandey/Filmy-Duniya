@@ -11,7 +11,7 @@ const Cards = () => {
   const movieData = async () => {
     setLoading(true);
     const data = await getDocs(moviesCollRef);
-    data.forEach((movies) => {
+    data?.forEach((movies) => {
       setData((prevData) => [...prevData, movies.data()]);
     });
     setLoading(false);
@@ -24,11 +24,11 @@ const Cards = () => {
   return (
     <>
       <div className="w-full ">
-        <div className="w-full flex flex-wrap items-start  p-3 mt-10 gap-8">
+        <div className="w-full flex flex-wrap justify-center items-center md:justify-start  p-3 mt-8 gap-8">
           {loading ? (
             <Loader />
           ) : (
-            data.map((item, index) => {
+            data?.map((item, index) => {
               const { name, year, rating, image } = item;
               return (
                 <div
@@ -37,7 +37,7 @@ const Cards = () => {
                  duration-300"
                 >
                   <img
-                    className="w-64 hover:rounded-lg transition-all duration-200 object-cover"
+                    className="w-60 md:w-64 hover:rounded-lg transition-all duration-200 object-cover"
                     src={image}
                     alt="posterImg"
                   />
