@@ -6,7 +6,7 @@ import AddMovies from "./components/addMovies/AddMovies";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App relative">
       <Header />
       <Routes>
         <Route path="/" element={<Cards />} />

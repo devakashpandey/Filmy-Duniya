@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 const AddMovies = () => {
   const [form, setForm] = useState({
@@ -8,10 +9,12 @@ const AddMovies = () => {
     image: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <>
       <section class="text-gray-400 body-font relative">
-        <div class="container px-5 py-20 mx-auto">
+        <div class="container px-5 py-16 mx-auto">
           <div class="flex flex-col text-center w-full mb-10">
             <h1 class="sm:text-4xl text-2xl font-semibold mb-2 text-white">
               Add <span className="text-[#E94560]">Movie</span>
@@ -65,17 +68,6 @@ const AddMovies = () => {
                   ></input>
                 </div>
               </div>
-              <span className="text-center">OR</span>
-              <div class="p-2 w-full">
-                <div class="relative">
-                  <input
-                    id="image"
-                    name="image"
-                    value={form.description}
-                    type="file"
-                  ></input>
-                </div>
-              </div>
 
               <div class="p-2 w-full">
                 <div class="relative">
@@ -94,8 +86,8 @@ const AddMovies = () => {
                 </div>
               </div>
               <div class="p-2 w-full">
-                <button class="flex mx-auto text-white bg-[#0F3460] border-0 py-1.5 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg">
-                  Add
+                <button class="flex mx-auto text-white bg-[#0F3460] border-0 py-2 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg">
+                  {loading ? <Oval height={25} color="white" /> : "Add"}
                 </button>
               </div>
             </div>
