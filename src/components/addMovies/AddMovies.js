@@ -6,10 +6,10 @@ import swal from "sweetalert";
 
 const AddMovies = () => {
   const [form, setForm] = useState({
-    title: "",
+    name: "",
     year: "",
-    description: "",
     image: "",
+    description: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -46,10 +46,8 @@ const AddMovies = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={form.title}
-                    onChange={(e) =>
-                      setForm({ ...form, title: e.target.value })
-                    }
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
                     class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
@@ -61,9 +59,9 @@ const AddMovies = () => {
                     Year
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
+                    type="number"
+                    id="number"
+                    name="year"
                     value={form.year}
                     onChange={(e) => setForm({ ...form, year: e.target.value })}
                     class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
@@ -73,12 +71,16 @@ const AddMovies = () => {
 
               <div class="p-2 w-full">
                 <div class="relative">
-                  <label for="imageURL" class="leading-7 text-sm text-gray-200">
+                  <label for="image" class="leading-7 text-sm text-gray-200">
                     Image URL
                   </label>
                   <input
-                    id="imageURL"
-                    name="imageURL"
+                    id="image"
+                    name="image"
+                    value={form.image}
+                    onChange={(e) =>
+                      setForm({ ...form, image: e.target.value })
+                    }
                     class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   ></input>
                 </div>
@@ -90,8 +92,8 @@ const AddMovies = () => {
                     Description
                   </label>
                   <textarea
-                    id="message"
-                    name="message"
+                    id="description"
+                    name="description"
                     value={form.description}
                     onChange={(e) =>
                       setForm({ ...form, description: e.target.value })

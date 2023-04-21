@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
 import Loader from "../loader/Loader";
+import { getDocs } from "firebase/firestore";
+import { moviesCollRef } from "../../firebase";
 
 const Cards = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {}, []);
+  const movieData = async () => {
+    setLoading(true);
+    const data = await getDocs(moviesCollRef);
+    data.forEach((movies) => {
+      setData((prevData) => [...prevData, movies.data()]);
+    });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    movieData();
+  }, []);
 
   return (
     <>
       <div className="w-full ">
-        <div className="w-full flex flex-wrap justify-between items-start  p-3 mt-10 gap-8">
+        <div className="w-full flex flex-wrap items-start  p-3 mt-10 gap-8">
           {loading ? (
             <Loader />
           ) : (
             data.map((item, index) => {
-              const { name, year, rating, img } = item;
+              const { name, year, rating, image } = item;
               return (
                 <div
                   key={index}
@@ -25,7 +38,7 @@ const Cards = () => {
                 >
                   <img
                     className="w-64 hover:rounded-lg transition-all duration-200 object-cover"
-                    src={img}
+                    src={image}
                     alt="posterImg"
                   />
                   <div className="p-1 w-full text-lg ">
