@@ -45,8 +45,8 @@ const Cards = () => {
                     />
                     <div className="p-1 w-full text-lg ">
                       <h1>
-                        <span className="text-[#E94560] capitalize">Name</span>{" "}
-                        : {name}
+                        <span className="text-[#E94560]">Name</span> :{" "}
+                        <span className="capitalize">{name}</span>
                       </h1>
                       <h2>Year : {year}</h2>
                       <h2 className="flex gap-1 items-center">

@@ -7,7 +7,7 @@ import DetailPage from "./components/detailPage/DetailPage";
 
 function App() {
   return (
-    <div className="App relative">
+    <div className="App relative ">
       <Header />
       <Routes>
         <Route path="/" element={<Cards />} />

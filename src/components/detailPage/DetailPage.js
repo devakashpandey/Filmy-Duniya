@@ -39,7 +39,7 @@ const DetailPage = () => {
             alt="posterImg"
           />
           <div className="ml-0 flex items-center md:items-start flex-col md:ml-8 w-full md:w-1/2">
-            <h1 className="text-2xl text-gray-300 font-semibold">
+            <h1 className="text-2xl text-gray-300 font-semibold capitalize">
               {movieDetail.name}
               <span className="font-medium">({movieDetail.year})</span>
             </h1>
