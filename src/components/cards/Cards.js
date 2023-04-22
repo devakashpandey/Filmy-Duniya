@@ -3,6 +3,7 @@ import ReactStars from "react-stars";
 import Loader from "../loader/Loader";
 import { getDocs } from "firebase/firestore";
 import { moviesCollRef } from "../../firebase";
+import { Link } from "react-router-dom";
 
 const Cards = () => {
   const [data, setData] = useState([]);
@@ -29,35 +30,37 @@ const Cards = () => {
             <Loader />
           ) : (
             data?.map((item, index) => {
-              const { name, year, rating, image } = item;
+              const { name, year, rating, image, id } = item;
               return (
-                <div
-                  key={index}
-                  className="bg-[#16213E] shadow-xl p-2 rounded-md cursor-pointer hover:-translate-y-3 
+                <Link to={`/detail/${id}`}>
+                  <div
+                    key={index}
+                    className="bg-[#16213E] shadow-xl p-2 rounded-md cursor-pointer hover:-translate-y-3 
                  duration-300"
-                >
-                  <img
-                    className="w-60 md:w-64 hover:rounded-lg transition-all duration-200 object-cover"
-                    src={image}
-                    alt="posterImg"
-                  />
-                  <div className="p-1 w-full text-lg ">
-                    <h1>
-                      <span className="text-[#E94560] capitalize">Name</span> :{" "}
-                      {name}
-                    </h1>
-                    <h2>Year : {year}</h2>
-                    <h2 className="flex gap-1 items-center">
-                      Rating :{" "}
-                      <ReactStars
-                        size={20}
-                        half={true}
-                        value={rating}
-                        edit={false}
-                      />{" "}
-                    </h2>
+                  >
+                    <img
+                      className="w-60 md:w-64 hover:rounded-lg transition-all duration-200 object-cover"
+                      src={image}
+                      alt="posterImg"
+                    />
+                    <div className="p-1 w-full text-lg ">
+                      <h1>
+                        <span className="text-[#E94560] capitalize">Name</span>{" "}
+                        : {name}
+                      </h1>
+                      <h2>Year : {year}</h2>
+                      <h2 className="flex gap-1 items-center">
+                        Rating :{" "}
+                        <ReactStars
+                          size={20}
+                          half={true}
+                          value={rating}
+                          edit={false}
+                        />{" "}
+                      </h2>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })
           )}
