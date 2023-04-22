@@ -12,7 +12,7 @@ const Cards = () => {
     setLoading(true);
     const data = await getDocs(moviesCollRef);
     data?.forEach((movies) => {
-      setData((prevData) => [...prevData, movies.data()]);
+      setData((prevData) => [...prevData, { ...movies.data(), id: movies.id }]);
     });
     setLoading(false);
   };
@@ -43,7 +43,8 @@ const Cards = () => {
                   />
                   <div className="p-1 w-full text-lg ">
                     <h1>
-                      <span className="text-[#E94560]">Name</span> : {name}
+                      <span className="text-[#E94560] capitalize">Name</span> :{" "}
+                      {name}
                     </h1>
                     <h2>Year : {year}</h2>
                     <h2 className="flex gap-1 items-center">
