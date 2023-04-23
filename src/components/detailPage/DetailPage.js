@@ -46,7 +46,9 @@ const DetailPage = () => {
             </h1>
             <ReactStars size={25} half={true} value={5} edit={false} />
             <p className="mt-2 text-justify">{movieDetail.description}</p>
-            <Review />
+
+            {/* review section */}
+            <Review id={id} />
           </div>
         </div>
       )}
