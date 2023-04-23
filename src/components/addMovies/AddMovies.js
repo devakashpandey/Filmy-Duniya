@@ -15,15 +15,33 @@ const AddMovies = () => {
   const [loading, setLoading] = useState(false);
 
   const adddMovie = async () => {
+    const { name, year, image, description } = form;
     setLoading(true);
-    await addDoc(moviesCollRef, form);
-    swal({
-      title: "Movie Added!",
-      icon: "success",
-      buttons: false,
-      timer: 3000,
-    });
-    setLoading(false);
+    if (name && year && image && description) {
+      await addDoc(moviesCollRef, form);
+      swal({
+        title: "Movie Added!",
+        icon: "success",
+        buttons: true,
+        timer: 3000,
+      });
+      setForm({
+        name: "",
+        year: "",
+        image: "",
+        description: "",
+      });
+      setLoading(false);
+    } else {
+      swal({
+        title: "Please fill all the field!!",
+        icon: "warning",
+        buttons: true,
+        timer: 3000,
+      });
+
+      setLoading(false);
+    }
   };
 
   return (
