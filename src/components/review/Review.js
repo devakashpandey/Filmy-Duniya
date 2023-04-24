@@ -12,35 +12,45 @@ const Review = ({ id, prevRating, Rated }) => {
 
   const sendReview = async () => {
     setLoading(true);
-    try {
-      await addDoc(reviewsRef, {
-        movieid: id,
-        name: "Akash Pandey",
-        rating: rating,
-        review: reviewField,
-        timestamp: new Date().getTime(),
-      });
+    if (rating && reviewField) {
+      try {
+        await addDoc(reviewsRef, {
+          movieid: id,
+          name: "Akash Pandey",
+          rating: rating,
+          review: reviewField,
+          timestamp: new Date().getTime(),
+        });
+        swal({
+          title: "Review Sent",
+          icon: "success",
+          buttons: true,
+          timer: 3000,
+        });
+        const docRef = doc(db, "movies", id);
+        await updateDoc(docRef, {
+          rating: prevRating + rating,
+          rated: Rated + 1,
+        });
+        setRating(0);
+        setReviewField("");
+      } catch (error) {
+        swal({
+          title: error.message,
+          icon: "error",
+          buttons: true,
+          timer: 3000,
+        });
+      }
+    } else {
       swal({
-        title: "Review Sent",
-        icon: "success",
-        buttons: true,
-        timer: 3000,
-      });
-      const docRef = doc(db, "movies", id);
-      await updateDoc(docRef, {
-        rating: prevRating + rating,
-        rated: Rated + 1,
-      });
-      setRating(0);
-      setReviewField("");
-    } catch (error) {
-      swal({
-        title: error.message,
-        icon: "error",
+        title: "Please fill both field!!",
+        icon: "warning",
         buttons: true,
         timer: 3000,
       });
     }
+
     setLoading(false);
   };
 

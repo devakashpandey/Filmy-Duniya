@@ -54,7 +54,7 @@ const Cards = () => {
                         <ReactStars
                           size={20}
                           half={true}
-                          value={rating}
+                          value={item.rating / item.rated}
                           edit={false}
                         />{" "}
                       </h2>
