@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ReactStars from "react-stars";
-import { reviewsRef } from "../../firebase";
-import { addDoc } from "firebase/firestore";
+import { reviewsRef, db } from "../../firebase";
+import { addDoc, doc, updateDoc } from "firebase/firestore";
 import { TailSpin } from "react-loader-spinner";
 import swal from "sweetalert";
 
-const Review = ({ id }) => {
+const Review = ({ id, prevRating, Rated }) => {
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
   const [reviewField, setReviewField] = useState("");
@@ -26,6 +26,12 @@ const Review = ({ id }) => {
         buttons: true,
         timer: 3000,
       });
+      const docRef = doc(db, "movies", id);
+      await updateDoc(docRef, {
+        rating: prevRating + rating,
+        rated: Rated + 1,
+      });
+      setRating(0);
       setReviewField("");
     } catch (error) {
       swal({

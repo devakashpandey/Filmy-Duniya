@@ -14,6 +14,8 @@ const DetailPage = () => {
     year: "",
     image: "",
     description: "",
+    rating: 0,
+    rated: 0,
   });
 
   const getData = async () => {
@@ -44,11 +46,20 @@ const DetailPage = () => {
               {movieDetail.name}
               <span className="font-medium text-2xl">({movieDetail.year})</span>
             </h1>
-            <ReactStars size={25} half={true} value={5} edit={false} />
+            <ReactStars
+              size={25}
+              half={true}
+              value={movieDetail.rating / movieDetail.rated}
+              edit={false}
+            />
             <p className="mt-2 text-justify">{movieDetail.description}</p>
 
             {/* review section */}
-            <Review id={id} />
+            <Review
+              id={id}
+              prevRating={movieDetail.rating}
+              Rated={movieDetail.rated}
+            />
           </div>
         </div>
       )}
