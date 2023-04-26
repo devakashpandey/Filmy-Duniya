@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
 import { reviewsRef, db } from "../../firebase";
-import { addDoc, doc, updateDoc } from "firebase/firestore";
-import { TailSpin } from "react-loader-spinner";
+import {
+  addDoc,
+  doc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { TailSpin, ThreeDots } from "react-loader-spinner";
 import swal from "sweetalert";
 
 const Review = ({ id, prevRating, Rated }) => {
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
   const [reviewField, setReviewField] = useState("");
+  const [reviewData, setReviewData] = useState([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
 
   const sendReview = async () => {
     setLoading(true);
@@ -54,6 +63,21 @@ const Review = ({ id, prevRating, Rated }) => {
     setLoading(false);
   };
 
+  const getReviewData = async () => {
+    setReviewsLoading(true);
+    const quer = query(reviewsRef, where("movieid", "==", id));
+    const snapShot = await getDocs(quer);
+
+    snapShot.forEach((doc) => {
+      setReviewData((prevData) => [...prevData, doc.data()]);
+    });
+    setReviewsLoading(false);
+  };
+
+  useEffect(() => {
+    getReviewData();
+  }, []);
+
   return (
     <>
       <div className="mt-4 w-full border-t-2 border-gray-700">
@@ -78,6 +102,22 @@ const Review = ({ id, prevRating, Rated }) => {
           >
             {loading ? <TailSpin height={25} color="white" /> : "Share"}
           </button>
+          {reviewsLoading ? (
+            <div className="mt-10 flex justify-center ">
+              <ThreeDots color="white" height={12} />
+            </div>
+          ) : (
+            <div>
+              {reviewData.map((ele, index) => {
+                return (
+                  <div key={index} className="bg-gray-100">
+                    <p></p>
+                    <p></p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>
