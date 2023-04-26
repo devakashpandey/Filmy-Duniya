@@ -107,12 +107,26 @@ const Review = ({ id, prevRating, Rated }) => {
               <ThreeDots color="white" height={12} />
             </div>
           ) : (
-            <div>
+            <div className="mt-5">
               {reviewData.map((ele, index) => {
                 return (
-                  <div key={index} className="bg-gray-100">
-                    <p></p>
-                    <p></p>
+                  <div
+                    key={index}
+                    className=" bg-[#16213e]  p-2 w-full mt-2 border-b border-gray-700"
+                  >
+                    <div className="flex gap-2 items-center">
+                      <p>{ele.name}</p>
+                      <p className="text-xs">
+                        ({new Date(ele.timestamp).toLocaleString()})
+                      </p>
+                    </div>
+                    <ReactStars
+                      size={15}
+                      half={true}
+                      value={ele.rating}
+                      edit={false}
+                    />
+                    <p>{ele.review}</p>
                   </div>
                 );
               })}
