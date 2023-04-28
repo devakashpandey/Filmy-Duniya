@@ -30,37 +30,38 @@ const Cards = () => {
             <Loader />
           ) : (
             data?.map((item, index) => {
-              const { name, year, rating, image, id } = item;
+              const { name, year, image, id } = item;
               return (
-                <Link to={`/detail/${id}`}>
-                  <div
-                    key={index}
-                    className="bg-[#16213E] shadow-xl p-2 rounded-md cursor-pointer hover:-translate-y-3 
+                <div key={index}>
+                  <Link to={`/detail/${id}`}>
+                    <div
+                      className="bg-[#16213E] shadow-xl p-2 rounded-md cursor-pointer hover:-translate-y-3 
                  duration-300"
-                  >
-                    <img
-                      className="w-60 md:w-64 hover:rounded-lg transition-all duration-200 object-cover"
-                      src={image}
-                      alt="posterImg"
-                    />
-                    <div className="p-1 w-full text-lg ">
-                      <h1>
-                        <span className="text-[#E94560]">Name</span> :{" "}
-                        <span className="capitalize">{name}</span>
-                      </h1>
-                      <h2>Year : {year}</h2>
-                      <h2 className="flex gap-1 items-center">
-                        Rating :{" "}
-                        <ReactStars
-                          size={20}
-                          half={true}
-                          value={item.rating / item.rated}
-                          edit={false}
-                        />{" "}
-                      </h2>
+                    >
+                      <img
+                        className="w-60 md:w-64 hover:rounded-lg transition-all duration-200 object-cover"
+                        src={image}
+                        alt="posterImg"
+                      />
+                      <div className="p-1 w-full text-lg ">
+                        <h1>
+                          <span className="text-[#E94560]">Name</span> :{" "}
+                          <span className="capitalize">{name}</span>
+                        </h1>
+                        <h2>Year : {year}</h2>
+                        <h2 className="flex gap-1 items-center">
+                          Rating :{" "}
+                          <ReactStars
+                            size={20}
+                            half={true}
+                            value={item.rating / item.rated}
+                            edit={false}
+                          />{" "}
+                        </h2>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })
           )}

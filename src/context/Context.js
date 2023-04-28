@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const ContextState = createContext();
 
@@ -13,4 +13,4 @@ export const StateProvider = ({ children }) => {
   );
 };
 
-export default StateProvider;
+export const useGlobalContext = () => useContext(ContextState);
