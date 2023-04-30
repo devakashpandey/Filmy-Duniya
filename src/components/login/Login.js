@@ -59,7 +59,7 @@ const Login = () => {
           <p>
             Do not have account?{" "}
             <Link to="/signup">
-              <span className="text-[#E94560] cursor-pointer">Sign up</span>
+              <span className="text-[#E94560] cursor-pointer">Signup</span>
             </Link>
           </p>
         </div>
