@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [form, setform] = useState({
-    mobile: 0,
+    mobile: "",
     password: "",
   });
 
