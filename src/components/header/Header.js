@@ -36,10 +36,9 @@ const Header = () => {
         ) : (
           <Link to="/login">
             <div
-              className="flex items-center justify-center gap-1 text-[19px] font-semibold
-        cursor-pointer border-2 shadow-xl border-[#0F3460] p-2 rounded-md hover:translate-x-1 duration-200"
+              className=" text-[19px] font-meduum 
+        cursor-pointer border-2 shadow-xl border-[#0F3460] px-5 p-1.5 rounded-md hover:translate-x-1 duration-200"
             >
-              <ControlPointIcon style={{ fontSize: 23 }} />
               Login
             </div>
           </Link>
