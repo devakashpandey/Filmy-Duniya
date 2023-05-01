@@ -10,12 +10,15 @@ import {
 import app from "../../firebase";
 import swal from "sweetalert";
 import { addDoc } from "firebase/firestore";
-// import { bcrypt } from "bcrypt"; // to store pass in database in hash form
 import { usersRef } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 const auth = getAuth(app);
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [form, setform] = useState({
     name: "",
@@ -57,19 +60,26 @@ const Signup = () => {
         });
         setOtpSent(true);
         setLoading(false);
-        setOTP("");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // uplode user data after otp verify
+  // upload user data after otp verify
 
   const uplodeData = async () => {
-    await addDoc(usersRef, {
-      form,
-    });
+    try {
+      const salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(form.password, salt);
+      await addDoc(usersRef, {
+        name: form.name,
+        password: hash,
+        mobile: form.mobile,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // OTP verify code
@@ -81,13 +91,19 @@ const Signup = () => {
         swal({
           text: "Successfully Registered",
           icon: "success",
-          buttons: "true",
           timer: 3000,
         });
+
+        navigate("/login");
         setLoading(false);
       });
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      swal({
+        text: error.message,
+        icon: "error",
+        timer: 3000,
+      });
     }
   };
 
