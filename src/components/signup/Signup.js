@@ -70,8 +70,8 @@ const Signup = () => {
 
   const uplodeData = async () => {
     try {
-      const salt = bcrypt.genSaltSync(10);
-      var hash = bcrypt.hashSync(form.password, salt);
+      const salt = bcrypt.genSaltSync(10); // gen salt
+      var hash = bcrypt.hashSync(form.password, salt); // gen pass hash code
       await addDoc(usersRef, {
         name: form.name,
         password: hash,
@@ -91,6 +91,7 @@ const Signup = () => {
         swal({
           text: "Successfully Registered",
           icon: "success",
+          buttons: false,
           timer: 3000,
         });
 
@@ -98,12 +99,7 @@ const Signup = () => {
         setLoading(false);
       });
     } catch (error) {
-      setLoading(false);
-      swal({
-        text: error.message,
-        icon: "error",
-        timer: 3000,
-      });
+      alert(error.message);
     }
   };
 
