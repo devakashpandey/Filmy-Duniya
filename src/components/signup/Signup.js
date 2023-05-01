@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import Otp from "../otp/Otp";
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  getAuth,
+} from "firebase/auth";
+import app from "../../firebase";
+import swal from "sweetalert";
+
+const auth = getAuth(app);
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -11,8 +20,47 @@ const Signup = () => {
     password: "",
   });
 
-  const [otpSent, setSentOtp] = useState(true);
+  const [otpSent, setOtpSent] = useState(false);
   const [OTP, setOTP] = useState("");
+
+  // otp generate reCAPTCHA by firebase
+
+  const generateRecaptcha = () => {
+    window.recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signin
+        },
+      },
+      auth
+    );
+  };
+
+  // otp generate code
+
+  const requestOTP = () => {
+    setLoading(true);
+    generateRecaptcha();
+    let appVerifier = window.recaptchaVerifier;
+    signInWithPhoneNumber(auth, `+91${form.mobile}`, appVerifier)
+      .then((confirmationResult) => {
+        window.confirmationResult = confirmationResult;
+        swal({
+          text: "OTP Sent",
+          icon: "success",
+          timer: 3000,
+        });
+        setOtpSent(true);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const verifyOTP = () => {};
 
   return (
     <>
@@ -83,10 +131,10 @@ const Signup = () => {
             </div>
 
             <button
-              onClick={null}
-              class="flex mx-auto mt-5 text-white bg-[#0F3460] border-0 py-2 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
+              onClick={requestOTP}
+              class="flex mx-auto mt-5 text-white bg-[#0F3460] border-0 py-2 px-6 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
             >
-              {loading ? <TailSpin height={25} color="white" /> : "Signup"}
+              {loading ? <TailSpin height={25} color="white" /> : "Request OTP"}
             </button>
             <div className="mt-5">
               <p>
@@ -99,6 +147,8 @@ const Signup = () => {
           </>
         )}
       </div>
+
+      <div id="recaptcha-container"></div>
     </>
   );
 };
