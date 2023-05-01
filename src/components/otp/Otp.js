@@ -1,7 +1,7 @@
 import React from "react";
 import { TailSpin } from "react-loader-spinner";
 
-const Otp = ({ loading, OTP, setOTP }) => {
+const Otp = ({ loading, OTP, setOTP, verifyOTP }) => {
   return (
     <>
       <div class="p-2 w-full px-10 md:w-1/4 md:px-0">
@@ -21,7 +21,7 @@ const Otp = ({ loading, OTP, setOTP }) => {
         </div>
       </div>
       <button
-        onClick={null}
+        onClick={verifyOTP}
         class="flex mx-auto mt-5 text-white bg-[#0F3460] border-0 py-2 px-6 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
       >
         {loading ? <TailSpin height={25} color="white" /> : "Confirm OTP"}

@@ -9,6 +9,9 @@ import {
 } from "firebase/auth";
 import app from "../../firebase";
 import swal from "sweetalert";
+import { addDoc } from "firebase/firestore";
+// import { bcrypt } from "bcrypt"; // to store pass in database in hash form
+import { usersRef } from "../../firebase";
 
 const auth = getAuth(app);
 
@@ -38,7 +41,7 @@ const Signup = () => {
     );
   };
 
-  // otp generate code
+  // request OTP code
 
   const requestOTP = () => {
     setLoading(true);
@@ -54,13 +57,39 @@ const Signup = () => {
         });
         setOtpSent(true);
         setLoading(false);
+        setOTP("");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const verifyOTP = () => {};
+  // uplode user data after otp verify
+
+  const uplodeData = async () => {
+    await addDoc(usersRef, {
+      form,
+    });
+  };
+
+  // OTP verify code
+  const verifyOTP = () => {
+    try {
+      setLoading(true);
+      window.confirmationResult.confirm(OTP).then((result) => {
+        uplodeData();
+        swal({
+          text: "Successfully Registered",
+          icon: "success",
+          buttons: "true",
+          timer: 3000,
+        });
+        setLoading(false);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -69,14 +98,22 @@ const Signup = () => {
         {otpSent ? (
           <>
             <div className="w-full flex justify-center mt-2 flex-col items-center">
-              <Otp loading={loading} OTP={OTP} setOTP={setOTP} />
+              <Otp
+                loading={loading}
+                OTP={OTP}
+                setOTP={setOTP}
+                verifyOTP={verifyOTP}
+              />
             </div>
           </>
         ) : (
           <>
-            <div class="p-2 w-full px-10 md:w-1/3 md:px-0">
-              <div class="relative">
-                <label for="name" class="leading-7 text-sm text-gray-200">
+            <div className="p-2 w-full px-10 md:w-1/3 md:px-0">
+              <div className="relative">
+                <label
+                  htmlFor="name"
+                  className="leading-7 text-sm text-gray-200"
+                >
                   Name
                 </label>
                 <input
@@ -85,16 +122,19 @@ const Signup = () => {
                   name="name"
                   value={form.name}
                   onChange={(e) => setform({ ...form, name: e.target.value })}
-                  class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+                  className="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
                      focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 
                      leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
             </div>
 
-            <div class="p-2 w-full px-10 md:w-1/3 md:px-0">
-              <div class="relative">
-                <label for="name" class="leading-7 text-sm text-gray-200">
+            <div className="p-2 w-full px-10 md:w-1/3 md:px-0">
+              <div className="relative">
+                <label
+                  htmlFor="name"
+                  className="leading-7 text-sm text-gray-200"
+                >
                   Number
                 </label>
                 <input
@@ -103,16 +143,19 @@ const Signup = () => {
                   name="number"
                   value={form.mobile}
                   onChange={(e) => setform({ ...form, mobile: e.target.value })}
-                  class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+                  className="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
                      focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 
                      leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
             </div>
 
-            <div class="p-2 w-full px-10 md:w-1/3 md:px-0">
-              <div class="relative">
-                <label for="name" class="leading-7 text-sm text-gray-200">
+            <div className="p-2 w-full px-10 md:w-1/3 md:px-0">
+              <div className="relative">
+                <label
+                  htmlFor="name"
+                  className="leading-7 text-sm text-gray-200"
+                >
                   Password
                 </label>
                 <input
@@ -123,7 +166,7 @@ const Signup = () => {
                   onChange={(e) =>
                     setform({ ...form, password: e.target.value })
                   }
-                  class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
+                  className="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
                      focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 
                      leading-8 transition-colors duration-200 ease-in-out"
                 />
@@ -132,7 +175,7 @@ const Signup = () => {
 
             <button
               onClick={requestOTP}
-              class="flex mx-auto mt-5 text-white bg-[#0F3460] border-0 py-2 px-6 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
+              className="flex mx-auto mt-5 text-white bg-[#0F3460] border-0 py-2 px-6 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
             >
               {loading ? <TailSpin height={25} color="white" /> : "Request OTP"}
             </button>
