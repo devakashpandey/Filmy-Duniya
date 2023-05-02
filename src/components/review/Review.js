@@ -11,8 +11,11 @@ import {
 } from "firebase/firestore";
 import { TailSpin, ThreeDots } from "react-loader-spinner";
 import swal from "sweetalert";
+import { useGlobalContext } from "../../context/Context";
 
 const Review = ({ id, prevRating, Rated }) => {
+  const { userName } = useGlobalContext();
+
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
   const [reviewField, setReviewField] = useState("");
@@ -25,7 +28,7 @@ const Review = ({ id, prevRating, Rated }) => {
       try {
         await addDoc(reviewsRef, {
           movieid: id,
-          name: "Akash Pandey",
+          name: userName,
           rating: rating,
           review: reviewField,
           timestamp: new Date().getTime(),

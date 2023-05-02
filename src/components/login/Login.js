@@ -29,7 +29,7 @@ const Login = () => {
         const isUser = bcrypt.compareSync(form.password, data.password);
         if (isUser) {
           setLogin(true);
-          setUserName(doc.name);
+          setUserName(doc.data().name);
           swal({
             text: "Logged In",
             icon: "success",
