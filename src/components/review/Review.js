@@ -23,6 +23,7 @@ const Review = ({ id, prevRating, Rated }) => {
   const [reviewField, setReviewField] = useState("");
   const [reviewData, setReviewData] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
+  const [newReview, setNewReview] = useState(0);
 
   const sendReview = async () => {
     setLoading(true);
@@ -59,6 +60,7 @@ const Review = ({ id, prevRating, Rated }) => {
         }
         setRating(0);
         setReviewField("");
+        setNewReview(newReview + 1);
       } catch (error) {
         swal({
           title: error.message,
@@ -81,6 +83,7 @@ const Review = ({ id, prevRating, Rated }) => {
 
   const getReviewData = async () => {
     setReviewsLoading(true);
+    setReviewData([]);
     const quer = query(reviewsRef, where("movieid", "==", id));
     const snapShot = await getDocs(quer);
 
@@ -92,7 +95,7 @@ const Review = ({ id, prevRating, Rated }) => {
 
   useEffect(() => {
     getReviewData();
-  }, []);
+  }, [newReview]);
 
   return (
     <>

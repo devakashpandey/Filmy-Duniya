@@ -13,9 +13,9 @@ body {
   color: white;
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
-} */
+}
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
