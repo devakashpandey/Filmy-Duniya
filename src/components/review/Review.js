@@ -12,9 +12,11 @@ import {
 import { TailSpin, ThreeDots } from "react-loader-spinner";
 import swal from "sweetalert";
 import { useGlobalContext } from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 const Review = ({ id, prevRating, Rated }) => {
-  const { userName } = useGlobalContext();
+  const { userName, login } = useGlobalContext();
+  const navigate = useNavigate();
 
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -26,24 +28,35 @@ const Review = ({ id, prevRating, Rated }) => {
     setLoading(true);
     if (rating && reviewField) {
       try {
-        await addDoc(reviewsRef, {
-          movieid: id,
-          name: userName,
-          rating: rating,
-          review: reviewField,
-          timestamp: new Date().getTime(),
-        });
-        swal({
-          title: "Review Sent",
-          icon: "success",
-          buttons: true,
-          timer: 3000,
-        });
-        const docRef = doc(db, "movies", id);
-        await updateDoc(docRef, {
-          rating: prevRating + rating,
-          rated: Rated + 1,
-        });
+        if (login) {
+          await addDoc(reviewsRef, {
+            movieid: id,
+            name: userName,
+            rating: rating,
+            review: reviewField,
+            timestamp: new Date().getTime(),
+          });
+          swal({
+            title: "Review Sent",
+            icon: "success",
+            buttons: true,
+            timer: 3000,
+          });
+          const docRef = doc(db, "movies", id);
+          await updateDoc(docRef, {
+            rating: prevRating + rating,
+            rated: Rated + 1,
+          });
+        } else {
+          swal({
+            title: "Please Login First!!",
+            icon: "warning",
+            buttons: true,
+            timer: 2000,
+          });
+
+          navigate("/login");
+        }
         setRating(0);
         setReviewField("");
       } catch (error) {
