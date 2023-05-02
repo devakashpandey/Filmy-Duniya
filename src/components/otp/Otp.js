@@ -13,6 +13,7 @@ const Otp = ({ loading, OTP, setOTP, verifyOTP }) => {
             id="otp"
             name="otp"
             value={OTP}
+            placeholder="Enter OTP"
             onChange={(e) => setOTP(e.target.value)}
             class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
                      focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 

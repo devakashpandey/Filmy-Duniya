@@ -154,6 +154,7 @@ const Signup = () => {
                   type="number"
                   id="number"
                   name="number"
+                  placeholder="Enter mobile number"
                   value={form.mobile}
                   onChange={(e) => setform({ ...form, mobile: e.target.value })}
                   className="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
@@ -175,6 +176,7 @@ const Signup = () => {
                   type="password"
                   id="password"
                   name="password"
+                  placeholder="Enter password"
                   value={form.password}
                   onChange={(e) =>
                     setform({ ...form, password: e.target.value })

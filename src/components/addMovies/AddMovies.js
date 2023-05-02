@@ -80,6 +80,7 @@ const AddMovies = () => {
                     type="text"
                     id="name"
                     name="name"
+                    placeholder="Movie name"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
@@ -98,6 +99,7 @@ const AddMovies = () => {
                     type="number"
                     id="number"
                     name="year"
+                    placeholder="Release year"
                     value={form.year}
                     onChange={(e) => setForm({ ...form, year: e.target.value })}
                     class="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300
@@ -117,6 +119,7 @@ const AddMovies = () => {
                     id="image"
                     name="image"
                     value={form.image}
+                    placeholder="Movie poster link"
                     onChange={(e) =>
                       setForm({ ...form, image: e.target.value })
                     }
@@ -136,6 +139,7 @@ const AddMovies = () => {
                     id="description"
                     name="description"
                     value={form.description}
+                    placeholder="Description about movie"
                     onChange={(e) =>
                       setForm({ ...form, description: e.target.value })
                     }
@@ -146,7 +150,7 @@ const AddMovies = () => {
               <div class="p-2 w-full">
                 <button
                   onClick={addMovie}
-                  class="flex mx-auto text-white bg-[#0F3460] border-0 py-2 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
+                  class="flex mx-auto text-white bg-[#0F3460] border-0 py-1.5 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
                 >
                   {loading ? <Oval height={25} color="white" /> : "Add"}
                 </button>
