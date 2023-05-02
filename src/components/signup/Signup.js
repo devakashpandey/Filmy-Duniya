@@ -133,6 +133,7 @@ const Signup = () => {
                   id="name"
                   name="name"
                   value={form.name}
+                  placeholder="Enter your name"
                   onChange={(e) => setform({ ...form, name: e.target.value })}
                   className="w-full bg-gray-100 bg-opacity-80 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2
                      focus:ring-indigo-200 text-base outline-none text-gray-900 py-1 px-3 
