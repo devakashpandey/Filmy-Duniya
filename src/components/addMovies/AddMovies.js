@@ -3,8 +3,12 @@ import { Oval } from "react-loader-spinner";
 import { addDoc } from "firebase/firestore";
 import { moviesCollRef } from "../../firebase";
 import swal from "sweetalert";
+import { useGlobalContext } from "../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 const AddMovies = () => {
+  const { login } = useGlobalContext();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     year: "",
@@ -16,23 +20,33 @@ const AddMovies = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const adddMovie = async () => {
+  const addMovie = async () => {
     const { name, year, image, description } = form;
     setLoading(true);
     if (name && year && image && description) {
-      await addDoc(moviesCollRef, form);
-      swal({
-        title: "Movie Added!",
-        icon: "success",
-        buttons: true,
-        timer: 3000,
-      });
-      setForm({
-        name: "",
-        year: "",
-        image: "",
-        description: "",
-      });
+      if (login) {
+        await addDoc(moviesCollRef, form);
+        swal({
+          title: "Movie Added!",
+          icon: "success",
+          buttons: true,
+          timer: 3000,
+        });
+        setForm({
+          name: "",
+          year: "",
+          image: "",
+          description: "",
+        });
+      } else {
+        swal({
+          title: "Please Login First!!",
+          icon: "warning",
+          buttons: true,
+          timer: 2000,
+        });
+        navigate("/login");
+      }
       setLoading(false);
     } else {
       swal({
@@ -131,7 +145,7 @@ const AddMovies = () => {
               </div>
               <div class="p-2 w-full">
                 <button
-                  onClick={adddMovie}
+                  onClick={addMovie}
                   class="flex mx-auto text-white bg-[#0F3460] border-0 py-2 px-8 focus:outline-none hover:bg-[#0F3480]  rounded text-lg"
                 >
                   {loading ? <Oval height={25} color="white" /> : "Add"}
