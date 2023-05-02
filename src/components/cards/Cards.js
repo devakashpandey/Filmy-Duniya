@@ -11,6 +11,7 @@ const Cards = () => {
 
   const movieData = async () => {
     setLoading(true);
+    setData([]);
     const data = await getDocs(moviesCollRef);
     data?.forEach((movies) => {
       setData((prevData) => [...prevData, { ...movies.data(), id: movies.id }]);

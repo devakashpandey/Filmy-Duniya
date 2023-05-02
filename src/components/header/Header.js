@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../context/Context";
 
 const Header = () => {
-  const { login } = useGlobalContext();
+  const { login, userName } = useGlobalContext();
 
   return (
     <>
@@ -21,18 +21,23 @@ const Header = () => {
           </div>
         </Link>
         {login ? (
-          <Link to="/addmovie">
-            <div
-              className="flex items-center justify-center gap-1 text-[19px] font-semibold
+          <>
+            <h1 className="md:text-2xl md:font-semibold">
+              Welcome, {userName}
+            </h1>
+            <Link to="/addmovie">
+              <div
+                className="flex items-center justify-center gap-1 text-[19px] font-semibold
         cursor-pointer border-2 shadow-xl border-[#0F3460] p-2 rounded-md hover:translate-x-1 duration-200"
-            >
-              <ControlPointIcon style={{ fontSize: 23 }} />
-              Add{" "}
-              <span className="text-[#E94560] ">
-                <span className="hidden md:inline-flex">New</span>
-              </span>
-            </div>
-          </Link>
+              >
+                <ControlPointIcon style={{ fontSize: 23 }} />
+                Add{" "}
+                <span className="text-[#E94560] ">
+                  <span className="hidden md:inline-flex">New</span>
+                </span>
+              </div>
+            </Link>
+          </>
         ) : (
           <Link to="/login">
             <div
